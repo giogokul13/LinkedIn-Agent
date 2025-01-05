@@ -1,3 +1,15 @@
+<div *ngIf="loading" class="spinner">
+  <svg class="w-16 h-16 animate-spin text-blue-400/90" viewBox="0 0 64 64" fill="none"
+    xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+    <path
+      d="M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z"
+      stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path
+      d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
+      stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+    </path>
+  </svg>
+</div>  
 <div class="bg-white">
   <header class="absolute inset-x-0 top-0 z-50">
     <!-- <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -26,10 +38,10 @@
       </div>
     </nav> -->
     <!-- Mobile menu, show/hide based on menu open state. -->
-    <div class="lg:hidden" role="dialog" aria-modal="true">
+    <!-- <div class="lg:hidden" role="dialog" aria-modal="true"> -->
       <!-- Background backdrop, show/hide based on slide-over state. -->
-      <div class="fixed inset-0 z-50"></div>
-      <div
+      <!-- <div class="fixed inset-0 z-50"></div> -->
+      <!-- <div
         class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
         <div class="flex items-center justify-between">
           <a href="#" class="-m-1.5 p-1.5">
@@ -44,8 +56,8 @@
             </svg>
           </button>
         </div>
-        <div class="mt-6 flow-root">   
-          <div class="-my-6 divide-y divide-gray-500/10"> 
+        <div class="mt-6 flow-root">
+          <div class="-my-6 divide-y divide-gray-500/10">
             <div class="space-y-2 py-6">
               <a href="#"
                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:">Product</a>
@@ -57,14 +69,13 @@
                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:">Company</a>
             </div>
             <div class="py-6">
-              <a href="#"
-                class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:">Log
+              <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:">Log
                 in</a>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </header>
 
   <div class="relative isolate px-6 pt-14 lg:px-8">
@@ -74,33 +85,70 @@
         style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
       </div>
     </div>
-    <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+    <div class="mx-auto max-w-2xl sm:py-10 lg">
       <div class="text-center">
         <h1 class="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">LinkedIn Agent</h1>
         <p class="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
           This Agent will allow you to generate posts for LinkedIn and post automatically in one click.
         </p>
-        <div class="mt-10 flex items-center justify-center gap-x-6">
+        <div *ngIf="!connected" class="mt-10 flex items-center justify-center gap-x-6">
           <button (click)="openAuthDialog()">
-          <img src="https://content.linkedin.com/content/dam/developer/global/en_US/site/img/signin-button.png"
+            <img src="https://content.linkedin.com/content/dam/developer/global/en_US/site/img/signin-button.png"
               alt="Sign in with LinkedIn" width="200">
           </button>
         </div>
+        <div *ngIf="connected" class="pt-2.5 flex mb-4 flex justify-center">
+          <div>
+            <svg class="h-8 w-8 text-green-500" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+          </div>
+          <div> Connected Successfully with LinkedIn </div>
+        </div>
       </div>
     </div>
-    <div
-      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-      aria-hidden="true">
-      <div
-        class="relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+  </div>
+  <!-- Form -->
+  <div class="flex justify-center">
+    <div class="px-5">
+      <div class="flex flex-wrap">
+        <div class="w-full">
+          <textarea name="message" [(ngModel)]="promptStr"
+            class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="message" rows="10" cols="90" placeholder="Write your thoughts here..."> </textarea>
+        </div>
+
+        <div class="w-full px-3 pt-2">
+          <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border 
+          border-blue-500 hover:border-transparent rounded" (click)="promptStr = ''">
+            Clear
+          </button>
+          <span class="px-2"></span>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            (click)="generateContent()">
+            Generate Post
+          </button>        
+        </div>
+      </div>
+
+    </div>
+    <div class="px-0">
+      <div class="w-full">
+        <textarea name="preview" [disabled]="previewStr.length == 0" [(ngModel)]="previewStr"
+          class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="preview" rows="10" cols="90" placeholder="Your preview is here.."> </textarea>
+      </div>
+      <div class="w-full px-3 pt-2">
+        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border 
+          border-blue-500 hover:border-transparent rounded" (click)="previewStr = ''">
+          Clear
+        </button>
+        <span class="px-2"></span>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="postContent()">
+          Post this on LinkedIn
+        </button>
       </div>
     </div>
-     <!-- Form -->
-     <div class="flex justify-center">
-      <textarea id="message" rows="4" cols="25"
-         class="block p-2.5 w-full text-sm:ring-blue-500 focus:placeholder-gray-400 dark:text-white dark:w-2/5"
-         placeholder="Write your thoughts here..."></textarea>
-     </div>
   </div>
 </div>

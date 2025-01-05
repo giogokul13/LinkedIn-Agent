@@ -9,7 +9,7 @@ const routes: Routes = [
     path: "", component: HomeComponent
   },
   {
-    path: "login", component: LoginComponent
+    path: "login-callback", component: LoginComponent
   }
 ];
 
